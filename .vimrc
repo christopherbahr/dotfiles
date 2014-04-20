@@ -213,7 +213,7 @@ NeoBundle 'edkolev/tmuxline.vim'
 let g:tmuxline_theme = 'solarized'
 
 "Real men live life in hard mode
-"Makes moving incorrectly a huge pain in the ass with a 1 second timeout every
+"Makes moving incorrectly a huge pain with a 1 second timeout every
 "time you use jkhl or arrow keys
 NeoBundle 'takac/vim-hardtime'
 let g:hardtime_default_on = 1
@@ -301,7 +301,8 @@ set number
 "In case you're using another editor
 set autoread
 
-" Set this higher than standard because the lower corner of this screen sucks
+" Set this higher than standard because the lower corner of this screen is
+" terrible
 set scrolloff=10
 
 "Automatically wrap the line after 80 characters
@@ -416,7 +417,7 @@ nnoremap <leader>} }k
 
 "Open new line above/below cursor
 "It seems like it's more intuitive to use o and O but with the dvorak keymap and
-"comma being the leader key that's the same finger which is a pain in the ass
+"comma being the leader key that's the same finger which is a pain 
 "So we'll use l and L for line
 nnoremap <leader>L :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <leader>l :set paste<CR>m`o<Esc>``:set nopaste<CR>
