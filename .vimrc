@@ -3,12 +3,25 @@ set nocompatible
 filetype off
 "
 "Neobundle stuff
+"
+
+if has('win32')
+
+ if has('vim_starting')
+   set runtimepath+=C:\\Program\ Files\ (x86)\\Vim\\vimfiles\\bundle\\neobundle.vim
+ endif
+
+ call neobundle#rc("C:\\Program\ Files\ (x86)\\Vim\\vimfiles\\bundle")
+
+else
 
  if has('vim_starting')
    set runtimepath+=~/.vim/bundle/neobundle.vim/
  endif
 
  call neobundle#rc(expand('~/.vim/bundle'))
+
+endif
 
  " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
