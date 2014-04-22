@@ -8,6 +8,7 @@ To get this set up on linux clone the repository. Symlink ~/.vimrc to dotfiles/.
 
 #####Prerequisites
 Vim 7.4 compiled with python support
+
 python (for YCM)
 
 #####Now let's get it working
