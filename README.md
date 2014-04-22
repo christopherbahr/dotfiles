@@ -10,6 +10,8 @@ To get this set up on linux clone the repository. Symlink ~/.vimrc to dotfiles/.
 Vim 7.4 compiled with python support
 python (for YCM)
 
+#####Now let's get it working
+
 Note the following is a work in progress as I try to get this working on my work Win 7 computer. The following sholud be pretty good for starters. 
 
 Step 0: Take ownership of the folder that Vim is installed in. This will hopefully reduce the number of windows induced headaches during this install.
