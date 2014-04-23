@@ -24,10 +24,11 @@ Step 2: Install the github windows client here https://windows.github.com/. I th
 Step 3: Clone the NeoBundle repository into C:\Program Files (x86)\Vim\vimfiles\bundle (you'll have to create that directory). 
 
 Step 4: Clone this repository into your user folder and symlink the vimrc
-> cd "C:\Program Files (x86)\Vim\"
-> rm _vimrc
-> mklink _vimrc "%UserProfile\dotfiles\.vimrc"
-
+```
+cd "C:\Program Files (x86)\Vim\"
+rm _vimrc
+mklink _vimrc "%UserProfile\dotfiles\.vimrc"
+```
 
 Step 4: Launch vim, ignore the friendly error messages, and tell NeoBundle to install all the stuff.
 
