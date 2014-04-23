@@ -41,4 +41,8 @@ Step 7: Get YCM working.
 Airline is set to use the powerline symbols which means that we'll have to get a font that has them. I use consolas on windows and there is a patched version here https://github.com/nicolalamacchia/powerline-consolas which overwrites the system font to add the special symbols. All you have to do is download the ttf and install it and it should work great.
 
 #####YCM
-YCM is a great autocompleter but unfortunately there isn't actually support for windows. I tried it before and it failed miserably but smart people seem to have worked on it since then so maybe with their help I can get it going. 
+YCM isn't officially supported on Windows but there is a "Windows install guide". The easy way is to go here https://bitbucket.org/Haroogan/vim-youcompleteme-for-windows/src and follow the instructions.
+
+If you don't have LLVM just use the one from Haroogan too. Unzip the download and add the bin folder to the PATH so windows can find libclang.dll. (This will also give you the abilitiy to compile from the windows command line which may be nice or may break everything you've worked for that isn't Vim... proceed with caution).
+
+Note: It is important that python, vim, llvm, and YCM all either be 32 or 64 bit or it won't work.
