@@ -290,12 +290,16 @@ set smartcase
 set incsearch
 set hlsearch
 
+"encoding
+set encoding=utf8
+
 "Get some better font going on
 "I don't use a mac but hopefully I will one day
 if has("gui_macvim")
   set guifont=Menlo
 elseif has("gui_win32")
-  set guifont=Consolas
+  "set guifont=Consolas\ for\ Powerline\ FixedD:h11
+  set guifont=Consolas:h11
 elseif has("gui_running") "unix
   "set guifont=Inconsolata-dz\ for\ Powerline\ 11
   set guifont=Inconsolata\ 13
@@ -361,8 +365,6 @@ set noswapfile
 
 
 
-"encoding
-set encoding=utf8
 
 "make these work right (although with 80 char lines it shouldn't really matter)
 map j gj
@@ -430,7 +432,7 @@ nnoremap <leader>} }k
 
 "Open new line above/below cursor
 "It seems like it's more intuitive to use o and O but with the dvorak keymap and
-"comma being the leader key that's the same finger which is a pain 
+"comma being the leader key that's the same finger which is a pain
 "So we'll use l and L for line
 nnoremap <leader>L :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <leader>l :set paste<CR>m`o<Esc>``:set nopaste<CR>
