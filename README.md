@@ -19,7 +19,7 @@ Step 0: Take ownership of the folder that Vim is installed in. This will hopeful
 
 Step 1: Install git from here http://git-scm.com/download/win. Make sure to install it so that the PATH variable is modified so that typing git in a cmd window will work. (Otherwise NeoBundle will be sad).
 
-Step 2: Install the github windows client here https://windows.github.com/. I think this will make it much easier so you don't have to fight with ssh keys although I didn't actually do it this way.
+Step 2: Install the github windows client here https://windows.github.com/. I think this will make it much easier so you don't have to fight with ssh keys although I didn't actually do it this way. (Update: the client totally refused to sync for me... maybe it will work better if you start by using the client. I'm not sure but I had to do it over https and authenticate every time).
 
 Step 3: Clone the NeoBundle repository into C:\Program Files (x86)\Vim\vimfiles\bundle (you'll have to create that directory). 
 
