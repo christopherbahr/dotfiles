@@ -164,11 +164,10 @@ autocmd FileType tex let g:surround_48 = "\\left(\r\\right)"
 "(I've only done a tiny amount of ruby/rails development so it's hard to say"
 NeoBundle 'tpope/vim-rails'
 
-"PERL stuff
+"perl stuff
 NeoBundle 'vim-perl/vim-perl'
 
 
-"
 "Git stuff
 NeoBundle 'tpope/vim-fugitive'
 
@@ -233,13 +232,15 @@ let g:hardtime_default_on = 1
 "Even real men need a break when browsing undo trees or tags
 let g:hardtime_ignore_buffer_patterns = [ "Gundo", "Tagbar" ]
 
-NeoBundleCheck
 
-"Snippets ala textmate note NeoBundleCheck has to come before this or else it
-"breaks. I have no clue why. I couldn't be more confused
+"Snippets ala textmate
 NeoBundle 'SirVer/ultisnips'
 "Tell it where to look for snippets and use tab to cycle through pieces
-let g:UltiSnipsSnippetsDir = '/home/chris/.vim/MySnippets'
+if has('win32')
+  let g:UltiSnipsSnippetsDir = "C:\\Program\ Files\ (x86)\\Vim\\vimfiles\\MySnippets"
+else
+  let g:UltiSnipsSnippetsDir = $HOME . '.vim/MySnippets'
+endif
 let g:UltiSnipsExpandTrigger = "<C-s>"
 let g:UltiSnipsJumpForwardTrigger="<C-l>"
 let g:UltiSnipsJumpBackwardTrigger="<C-h>"
@@ -254,6 +255,11 @@ NeoBundle 'honza/vim-snippets'
 
 "I don't remember what this does... I should probably figure that out
 NeoBundle 'vim-scripts/sudo.vim'
+
+"exchange two regions of text using the cx{motion} operatior (twice)
+NeoBundle 'tommcdo/vim-exchange'
+
+NeoBundleCheck
 
 filetype plugin on
 filetype indent on
