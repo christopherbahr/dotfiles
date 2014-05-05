@@ -357,3 +357,19 @@ g_AbortSendRParen := true
     g_AbortSendLParen := true
     g_AbortSendRParen := true
     return
+~*+/::
+    g_AbortSendLParen := true
+    g_AbortSendRParen := true
+    return
+~*+=::
+    g_AbortSendLParen := true
+    g_AbortSendRParen := true
+    return
+~*+-::
+    g_AbortSendLParen := true
+    g_AbortSendRParen := true
+    return
+~*+\::
+    g_AbortSendLParen := true
+    g_AbortSendRParen := true
+    return
