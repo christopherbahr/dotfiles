@@ -61,12 +61,12 @@ export PATH="/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/
 # export LANG=en_US.UTF-8
 
  #Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='vim'
- fi
-
+ #if [[ -n $SSH_CONNECTION ]]; then
+   #export EDITOR='vim'
+ #else
+   #export EDITOR='vim'
+ #fi
+export EDITOR='vim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 

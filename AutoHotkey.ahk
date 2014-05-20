@@ -112,264 +112,264 @@ g_ControlRepeatDetected := false
     g_AbortSendEsc := true
     return
 
-; LShift -> LShift/(. This one doesn't seem to suffer from sending ( after a
-; Shift sequence.
-; (inspired by https://gist.github.com/sedm0784/4443120)
-; Good god is it ugly though... Seems like there must be a better way.
 
-g_LastLShiftKeyDownTime := 0
-g_AbortSendLParen := false
-g_LShiftRepeatDetected := false
+;; Shift sequence.
+;; (inspired by https://gist.github.com/sedm0784/4443120)
+;; Good god is it ugly though... Seems like there must be a better way.
 
-*LShift::
-    if (g_LShiftRepeatDetected)
-    {
-        return
-    }
+;g_LastLShiftKeyDownTime := 0
+;g_AbortSendLParen := false
+;g_LShiftRepeatDetected := false
 
-    send,{LShift down}
-    g_LastLShiftKeyDownTime := A_TickCount
-    g_AbortSendLParen := false
-    g_LShiftRepeatDetected := true
+;*LShift::
+    ;if (g_LShiftRepeatDetected)
+    ;{
+        ;return
+    ;}
 
-    return
+    ;send,{LShift down}
+    ;g_LastLShiftKeyDownTime := A_TickCount
+    ;g_AbortSendLParen := false
+    ;g_LShiftRepeatDetected := true
 
-*LShift Up::
-    send,{LShift up}
-    g_LShiftRepeatDetected := false
-    if (g_AbortSendLParen)
-    {
-        return
-    }
-    current_time := A_TickCount
-    time_elapsed := current_time - g_LastLShiftKeyDownTime
-    if (time_elapsed <= 250)
-    {
-        SendInput {(}
-    }
-    return
+    ;return
 
-; Experimentally switch from ) to { since vim very nicely closes these most of
-; the time
-; RShift -> RShift/{. This one doesn't seem to suffer from sending { after a
-; Shift sequence.
-; (inspired by https://gist.github.com/sedm0784/4443120)
+;*LShift Up::
+    ;send,{LShift up}
+    ;g_LShiftRepeatDetected := false
+    ;if (g_AbortSendLParen)
+    ;{
+        ;return
+    ;}
+    ;current_time := A_TickCount
+    ;time_elapsed := current_time - g_LastLShiftKeyDownTime
+    ;if (time_elapsed <= 250)
+    ;{
+        ;SendInput {(}
+    ;}
+    ;return
 
-g_RastRShiftKeyDownTime := 0
-g_AbortSendRParen := false
-g_RShiftRepeatDetected := false
+;; Experimentally switch from ) to { since vim very nicely closes these most of
+;; the time
+;; RShift -> RShift/{. This one doesn't seem to suffer from sending { after a
+;; Shift sequence.
+;; (inspired by https://gist.github.com/sedm0784/4443120)
 
-*RShift::
-    if (g_RShiftRepeatDetected)
-    {
-        return
-    }
+;g_RastRShiftKeyDownTime := 0
+;g_AbortSendRParen := false
+;g_RShiftRepeatDetected := false
 
-    send,{RShift down}
-    g_RastRShiftKeyDownTime := A_TickCount
-    g_AbortSendRParen := false
-    g_RShiftRepeatDetected := true
+;*RShift::
+    ;if (g_RShiftRepeatDetected)
+    ;{
+        ;return
+    ;}
 
-    return
+    ;send,{RShift down}
+    ;g_RastRShiftKeyDownTime := A_TickCount
+    ;g_AbortSendRParen := false
+    ;g_RShiftRepeatDetected := true
 
-*RShift Up::
-    send,{RShift up}
-    g_RShiftRepeatDetected := false
-    if (g_AbortSendRParen)
-    {
-        return
-    }
-    current_time := A_TickCount
-    time_elapsed := current_time - g_RastRShiftKeyDownTime
-    if (time_elapsed <= 250)
-    {
-        SendInput {{}
-    }
-    return
+    ;return
 
-;When to abort sending the paren
-~*+a::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+b::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+c::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+d::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+e::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+f::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+g::
-g_AbortSendRParen := true
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+h::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+i::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+j::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+k::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+l::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+m::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+n::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+o::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+p::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+q::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+r::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+s::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+t::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+u::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+v::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+w::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+x::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+y::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+z::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+0::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+1::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+2::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+3::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+4::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+5::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+6::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+7::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+8::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+9::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+[::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+]::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+;::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+'::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+,::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+.::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+/::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+=::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+-::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
-~*+\::
-    g_AbortSendLParen := true
-    g_AbortSendRParen := true
-    return
+;*RShift Up::
+    ;send,{RShift up}
+    ;g_RShiftRepeatDetected := false
+    ;if (g_AbortSendRParen)
+    ;{
+        ;return
+    ;}
+    ;current_time := A_TickCount
+    ;time_elapsed := current_time - g_RastRShiftKeyDownTime
+    ;if (time_elapsed <= 250)
+    ;{
+        ;SendInput {{}
+    ;}
+    ;return
+
+;;When to abort sending the paren
+;~*+a::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+b::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+c::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+d::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+e::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+f::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+g::
+;g_AbortSendRParen := true
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+h::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+i::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+j::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+k::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+l::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+m::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+n::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+o::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+p::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+q::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+r::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+s::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+t::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+u::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+v::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+w::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+x::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+y::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+z::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+0::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+1::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+2::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+3::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+4::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+5::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+6::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+7::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+8::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+9::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+[::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+]::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+;::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+'::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+,::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+.::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+/::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+=::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+-::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
+;~*+\::
+    ;g_AbortSendLParen := true
+    ;g_AbortSendRParen := true
+    ;return
