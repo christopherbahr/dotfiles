@@ -5,3 +5,5 @@ set hintkeys=aoeuidhtns
 
 map -count -modes=n j -builtin <count>6j
 map -count -modes=n k -builtin <count>6k
+
+nmap d <Nop>
