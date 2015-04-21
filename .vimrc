@@ -11,7 +11,7 @@ if has('win32')
    set runtimepath+=C:\\Program\ Files\ (x86)\\Vim\\vimfiles\\bundle\\neobundle.vim
  endif
 
- call neobundle#rc("C:\\Program\ Files\ (x86)\\Vim\\vimfiles\\bundle")
+ call neobundle#begin("C:\\Program\ Files\ (x86)\\Vim\\vimfiles\\bundle")
 
 else
 
@@ -19,13 +19,17 @@ else
    set runtimepath+=~/.vim/bundle/neobundle.vim/
  endif
 
- call neobundle#rc(expand('~/.vim/bundle'))
+ call neobundle#begin(expand('~/.vim/bundle'))
 
 endif
 
  " Let NeoBundle manage NeoBundle
 NeoBundleFetch 'Shougo/neobundle.vim'
 "
+"
+
+"Make doing math inline easier
+NeoBundle 'arecarn/crunch.vim'
 
 "move around the file so fast
 "NeoBundle 'Lokaltog/vim-easymotion'
@@ -85,38 +89,22 @@ let g:syntastic_php_checkers = ['php']
 let g:syntastic_javascript_checkers = ['jslint']
 let g:syntastic_ruby_checkers = ['ruby']
 let g:syntastic_java_checker = 'javac'
+let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
 
 "good for switching between buffers and files etc
 NeoBundle 'Shougo/unite.vim'
-let g:unite_source_history_yank = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
-"This could be better but it's a good start. Starts to get weird after 15 but I
-"don't normally work with that many buffers..
-let g:unite_quick_match_table = {
-      \ 'a' : 0, 'o' : 1, 'e' : 2, 'u' : 3, 'i' : 4, 'd' : 5, 'h' : 6,
-      \ 't' : 7, 'n' : 8, 's' : 9,'p' : 10, 'y' : 11, 'f' : 12, 'g' : 13,
-      \ 'c' : 14, 'r' : 15, 'l' : 16, 'q' : 17, 'j' : 18, 'k' : 19,'1' : 20,
-      \ '2' : 21, '3' : 22, '4' : 23, '5' : 24, '6' : 25, '7' : 26, '8' : 27,
-      \ '9' : 28, '0' : 29
-      \}
-
-"allegedly this makes it better, I don't entirely understand fuzzy matching but
-"I have had some trouble with the matches displayed so issue 276 seems like it
-"may fix it
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
+"
 "Allows asynchronous computations. Honestly I'm not sure if I'll ever use this
 "myself but it lets unite make the list asynchronously instead of blocking which
 "is nice
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+"NeoBundle 'Shougo/vimproc', {
+      "\ 'build' : {
+      "\     'windows' : 'make -f make_mingw32.mak',
+      "\     'cygwin' : 'make -f make_cygwin.mak',
+      "\     'mac' : 'make -f make_mac.mak',
+      "\     'unix' : 'make -f make_unix.mak',
+      "\    },
+      "\ }
 
 NeoBundle 'Valloric/YouCompleteMe'
 
@@ -127,6 +115,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+NeoBundle 'nosami/Omnisharp'
 
 """"""""""""""""""""""""""""""""""""""
 "       Old Autocomplete Stuff       "
@@ -174,6 +164,10 @@ NeoBundle 'tpope/vim-fugitive'
 "Make plugins repeat using . , lots of them use this and it's pretty easy to add
 "support. Ref the readme if I have one that doesn't do what I want
 NeoBundle 'tpope/vim-repeat'
+
+"dispatch which is neccesary to get omnisharp to work nicely. Also has nice
+"features for asyncronous stuff (which I probably won't use)
+NeoBundle 'tpope/vim-dispatch'
 
 "Browse tags, look at variables, functions, etc
 NeoBundle 'majutsushi/tagbar'
@@ -259,9 +253,31 @@ NeoBundle 'vim-scripts/sudo.vim'
 "exchange two regions of text using the cx{motion} operatior (twice)
 NeoBundle 'tommcdo/vim-exchange'
 
-NeoBundleCheck
+call neobundle#end()
+
+"This (apparently) needs to be after neobundle#end()
+let g:unite_source_history_yank = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+"This could be better but it's a good start. Starts to get weird after 15 but I
+"don't normally work with that many buffers..
+let g:unite_quick_match_table = {
+      \ 'a' : 0, 'o' : 1, 'e' : 2, 'u' : 3, 'i' : 4, 'd' : 5, 'h' : 6,
+      \ 't' : 7, 'n' : 8, 's' : 9,'p' : 10, 'y' : 11, 'f' : 12, 'g' : 13,
+      \ 'c' : 14, 'r' : 15, 'l' : 16, 'q' : 17, 'j' : 18, 'k' : 19,'1' : 20,
+      \ '2' : 21, '3' : 22, '4' : 23, '5' : 24, '6' : 25, '7' : 26, '8' : 27,
+      \ '9' : 28, '0' : 29
+      \}
+
+"allegedly this makes it better, I don't entirely understand fuzzy matching but
+"I have had some trouble with the matches displayed so issue 276 seems like it
+"may fix it
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 filetype plugin on
+
+NeoBundleCheck
+
 filetype indent on
 
 " Setup latex stuff

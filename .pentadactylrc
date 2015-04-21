@@ -8,3 +8,9 @@ map -count -modes=n k -builtin <count>6k
 
 nmap d <Nop>
 nmap D <Nop>
+
+map , <Leader>
+
+nmap <Leader>t :set guioptions+=T<CR>
+nmap <Leader>T :set guioptions-=T<CR>
+
