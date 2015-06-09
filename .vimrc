@@ -237,7 +237,7 @@ else
 endif
 let g:UltiSnipsExpandTrigger = "<C-s>"
 let g:UltiSnipsJumpForwardTrigger="<C-l>"
-let g:UltiSnipsJumpBackwardTrigger="<C-h>"
+"let g:UltiSnipsJumpBackwardTrigger="<C-h>"
 let g:UltiSnipsListSnippets="<C-e>"
 
 "Note we need both this and the ultisnipssnippetsdir to get it all to work
