@@ -2,7 +2,15 @@
 ###Vimrc (The most important)
 
 ####Unix
-To get this set up on linux clone the repository. Symlink ~/.vimrc to dotfiles/.vimrc. Clone NeoBundle and follow the instructions there to get that setup. Then launch vim, let it clone all of the plugins. Navigate to YouCompleteMe and run the install script. 
+To get this set up on linux clone the repository. Symlink ~/.nvimrc to dotfiles/.vimrc. Clone NeoBundle and follow the instructions there to get that setup. Then launch vim, let it clone all of the plugins. Navigate to YouCompleteMe and run the install script.
+
+####OSX
+
+You will need to run this in the home directory to get iTerm2 and nvim to play nice with the terminal codes to allow <C-h> to navigate between splits
+
+infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
+tic $TERM.ti
+
 
 ####Windows
 
@@ -13,7 +21,7 @@ python (for YCM)
 
 #####Now let's get it working
 
-Note the following is a work in progress as I try to get this working on my work Win 7 computer. The following sholud be pretty good for starters. 
+Note the following is a work in progress as I try to get this working on my work Win 7 computer. The following sholud be pretty good for starters.
 
 Step 0: Take ownership of the folder that Vim is installed in. This will hopefully reduce the number of windows induced headaches during this install.
 
@@ -21,7 +29,7 @@ Step 1: Install git from here http://git-scm.com/download/win. Make sure to inst
 
 Step 2: Install the github windows client here https://windows.github.com/. I think this will make it much easier so you don't have to fight with ssh keys although I didn't actually do it this way. (Update: the client totally refused to sync for me... maybe it will work better if you start by using the client. I'm not sure but I had to do it over https and authenticate every time).
 
-Step 3: Clone the NeoBundle repository into C:\Program Files (x86)\Vim\vimfiles\bundle (you'll have to create that directory). 
+Step 3: Clone the NeoBundle repository into C:\Program Files (x86)\Vim\vimfiles\bundle (you'll have to create that directory).
 
 Step 4: Clone this repository into your user folder and symlink the vimrc
 ```
