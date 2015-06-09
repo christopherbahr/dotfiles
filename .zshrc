@@ -23,10 +23,6 @@ antigen apply
 
 COMPLETION_WAITING_DOTS="true"
 
-ZSH_THEME=agnoster
-
-source $ZSH/oh-my-zsh.sh
-
 #################    OSX      ##################
 #
 #
