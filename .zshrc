@@ -30,6 +30,8 @@ COMPLETION_WAITING_DOTS="true"
 if [[ `uname` == 'Darwin' ]]
 then
   export EDITOR='nvim'
+  alias vim="nvim"
+  alias vi="nvim"
   export PATH="/usr/local/bin:$PATH"
 fi
 
@@ -39,7 +41,10 @@ fi
 if [[ `uname` == 'Linux' ]]
 then
   export PATH="/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/chris/bin:$PATH"
+
   export EDITOR='nvim'
+  alias vim="nvim"
+  alias vi="nvim"
 
   if [[ "$TERM" == "xterm" ]]
   then
@@ -50,12 +55,21 @@ then
 
   alias lock="gnome-screensaver-command -l"
 
+  #This is a pain in linux, make it easy if you aren't in the right keyboard
   alias aoeu="key_swap ~/.qwerty | xmodmap -"
   alias asdf="key_swap ~/.dvorak | xmodmap -"
 fi
 
 
 #############     Windows/Cygwin  ####################
+#
+
+if [[ `uname` == "CYGWIN_NT-6.1" ]]
+then
+  # There's no clear command in cygwin for some reason
+  alias clear='printf "\033c"'
+
+fi
 
 
 source ~/opp/opp.zsh
@@ -71,7 +85,6 @@ alias tmux="tmux -2"
 setopt NO_HUP
 setopt NO_CHECK_JOBS
 
-alias clear='printf "\033c"'
 
 alias -g G="| grep"
 
@@ -115,6 +128,12 @@ agent_start() {
     . "$env" >/dev/null
 }
 
+agent_load_keys(){
+  for key in ~/.ssh/*rsa; do
+    ssh-add "$key"
+  done
+}
+
 if ! agent_is_running; then
     agent_load_env
 fi
@@ -122,10 +141,9 @@ fi
 # if your keys are not stored in ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub, you'll need
 # to paste the proper path after ssh-add
 if ! agent_is_running; then
-    agent_start
-    ssh-add ~/.ssh/github_rsa
-elif ! agent_has_keys; then
-    ssh-add ~/.ssh/github_rsa
+  agent_start
 fi
+
+agent_load_keys
 
 unset env
