@@ -26,10 +26,10 @@ COMPLETION_WAITING_DOTS="true"
 #################    OSX      ##################
 #
 #
-export EDITOR='nvim'
 
 if [[ `uname` == 'Darwin' ]]
 then
+  export EDITOR='nvim'
   export PATH="/usr/local/bin:$PATH"
 fi
 
@@ -39,6 +39,7 @@ fi
 if [[ `uname` == 'Linux' ]]
 then
   export PATH="/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/chris/bin:$PATH"
+  export EDITOR='nvim'
 
   if [[ "$TERM" == "xterm" ]]
   then
@@ -54,6 +55,9 @@ then
 fi
 
 
+#############     Windows/Cygwin  ####################
+
+
 source ~/opp/opp.zsh
 source ~/opp/opp/*.zsh
 
@@ -67,25 +71,61 @@ alias tmux="tmux -2"
 setopt NO_HUP
 setopt NO_CHECK_JOBS
 
-SSH_ENV="$HOME/.ssh/environment"
+alias clear='printf "\033c"'
 
-function start_agent {
-  echo "Initialising new SSH agent..."
-  /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-  echo succeeded
-  chmod 600 "${SSH_ENV}"
-  . "${SSH_ENV}" > /dev/null
-  /usr/bin/ssh-add;
+alias -g G="| grep"
+
+alias gclean='git remote prune origin'
+
+##### SSH-AGENT #####
+#section stolen from github so ssh won't harrass me about the passphrase every
+#time
+
+# Note: ~/.ssh/environment should not be used, as it
+#       already has a different purpose in SSH.
+
+env=~/.ssh/agent.env
+
+# Note: Don't bother checking SSH_AGENT_PID. It's not used
+#       by SSH itself, and it might even be incorrect
+#       (for example, when using agent-forwarding over SSH).
+
+agent_is_running() {
+    if [ "$SSH_AUTH_SOCK" ]; then
+        # ssh-add returns:
+        #   0 = agent running, has keys
+        #   1 = agent running, no keys
+        #   2 = agent not running
+        ssh-add -l >/dev/null 2>&1 || [ $? -eq 1 ]
+    else
+        false
+    fi
 }
 
-# Source SSH settings, if applicable
+agent_has_keys() {
+    ssh-add -l >/dev/null 2>&1
+}
 
-if [ -f "${SSH_ENV}" ]; then
-  . "${SSH_ENV}" > /dev/null
-  #ps ${SSH_AGENT_PID} doesn't work under cywgin
-  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-    start_agent;
-  }
-else
-  start_agent;
+agent_load_env() {
+    . "$env" >/dev/null
+}
+
+agent_start() {
+    (umask 077; ssh-agent >"$env")
+    . "$env" >/dev/null
+}
+
+if ! agent_is_running; then
+    agent_load_env
 fi
+
+# if your keys are not stored in ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub, you'll need
+# to paste the proper path after ssh-add
+if ! agent_is_running; then
+    agent_start
+    ssh-add ~/.ssh/github_rsa
+elif ! agent_has_keys; then
+    ssh-add ~/.ssh/github_rsa
+fi
+
+unset env
