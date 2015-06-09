@@ -1,93 +1,86 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
 source ~/antigen/antigen.zsh
 
 antigen use oh-my-zsh
+#
+#GREP_OPTIONS is deprecated but I like the options defined by oh-my-zsh. Alias
+#grep to use the correct thing
+#This must be before antigen gets going
+alias grep="/usr/bin/grep $GREP_OPTIONS"
+unset GREP_OPTIONS
 
-antigen bundles << EOBUNDLES
+#main plugins that I need
+antigen bundle git
+antigen bundle vi-mode
 
-git
-git-extras
+#Nice syntax highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting
 
-vi-mode
-
-history-substring-search
-zsh-users/zsh-syntax-highlighting
-
-EOBUNDLES
-
+#set the theme
 antigen theme agnoster
 
 antigen apply
 
-COMPLETION_WAITING_DOTS="true"
+##### OPTIONS, ALIASES & CUSTOM FUNCTIONS #####
 
-source $ZSH/oh-my-zsh.sh
+setopt AUTO_CD
 
-#################    OSX      ##################
-#
-#
-export EDITOR='nvim'
+# alias gvim="vim"
 
-if [[ `uname` == 'Darwin' ]]
-then
-  export PATH="/usr/local/bin:$PATH"
-fi
+alias clear='printf "\033c"'
 
-#################    Linux     ##################
-#
-#
-if [[ `uname` == 'Linux' ]]
-then
-  export PATH="/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/chris/bin:$PATH"
+alias -g G="| grep"
 
-  if [[ "$TERM" == "xterm" ]]
-  then
-    export TERM="xterm-256color"
-  fi
+alias gclean='git remote prune origin'
 
-  alias gvim="gvim 2>/dev/null"
+##### SSH-AGENT #####
+#section stolen from github so ssh won't harrass me about the passphrase every
+#time
 
-  alias lock="gnome-screensaver-command -l"
+# Note: ~/.ssh/environment should not be used, as it
+#       already has a different purpose in SSH.
 
-  alias aoeu="key_swap ~/.qwerty | xmodmap -"
-  alias asdf="key_swap ~/.dvorak | xmodmap -"
-fi
+env=~/.ssh/agent.env
 
+# Note: Don't bother checking SSH_AGENT_PID. It's not used
+#       by SSH itself, and it might even be incorrect
+#       (for example, when using agent-forwarding over SSH).
 
-source ~/opp/opp.zsh
-source ~/opp/opp/*.zsh
-
-alias cd..="cd .."
-
-alias tmux="tmux -2"
-
-
-#So if I put something in the background I can close the shell without killing
-#it
-setopt NO_HUP
-setopt NO_CHECK_JOBS
-
-SSH_ENV="$HOME/.ssh/environment"
-
-function start_agent {
-  echo "Initialising new SSH agent..."
-  /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-  echo succeeded
-  chmod 600 "${SSH_ENV}"
-  . "${SSH_ENV}" > /dev/null
-  /usr/bin/ssh-add;
+agent_is_running() {
+    if [ "$SSH_AUTH_SOCK" ]; then
+        # ssh-add returns:
+        #   0 = agent running, has keys
+        #   1 = agent running, no keys
+        #   2 = agent not running
+        ssh-add -l >/dev/null 2>&1 || [ $? -eq 1 ]
+    else
+        false
+    fi
 }
 
-# Source SSH settings, if applicable
+agent_has_keys() {
+    ssh-add -l >/dev/null 2>&1
+}
 
-if [ -f "${SSH_ENV}" ]; then
-  . "${SSH_ENV}" > /dev/null
-  #ps ${SSH_AGENT_PID} doesn't work under cywgin
-  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-    start_agent;
-  }
-else
-  start_agent;
+agent_load_env() {
+    . "$env" >/dev/null
+}
+
+agent_start() {
+    (umask 077; ssh-agent >"$env")
+    . "$env" >/dev/null
+}
+
+if ! agent_is_running; then
+    agent_load_env
 fi
+
+# if your keys are not stored in ~/.ssh/id_rsa.pub or ~/.ssh/id_dsa.pub, you'll need
+# to paste the proper path after ssh-add
+if ! agent_is_running; then
+    agent_start
+    ssh-add ~/.ssh/github_rsa
+elif ! agent_has_keys; then
+    ssh-add ~/.ssh/github_rsa
+fi
+
+unset env
