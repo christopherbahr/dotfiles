@@ -280,6 +280,11 @@ NeoBundleCheck
 
 filetype indent on
 
+"Nvim specific stuff
+if has('nvim') 
+  tnoremap <Esc><Esc> <C-\><C-n>
+endif
+
 " Setup latex stuff
 let g:tex_flavor = 'latex'
 let g:tex_nine_config = {'compiler': 'pdflatex', 'synctex': 1, 'viewer': {'app': 'evince', 'target': 'pdf'} }
