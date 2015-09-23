@@ -10,8 +10,6 @@ antigen bundles << EOBUNDLES
 git
 git-extras
 
-vi-mode
-
 history-substring-search
 zsh-users/zsh-syntax-highlighting
 
@@ -22,6 +20,8 @@ antigen theme agnoster
 antigen apply
 
 COMPLETION_WAITING_DOTS="true"
+
+bindkey -v
 
 #################    OSX      ##################
 #
@@ -71,9 +71,6 @@ then
 
 fi
 
-
-source ~/opp/opp.zsh
-source ~/opp/opp/*.zsh
 
 alias cd..="cd .."
 
@@ -144,6 +141,8 @@ if ! agent_is_running; then
   agent_start
 fi
 
-agent_load_keys
+if ! agent_has_keys; then
+  agent_load_keys
+fi
 
 unset env
