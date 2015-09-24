@@ -15,8 +15,6 @@ zsh-users/zsh-syntax-highlighting
 
 EOBUNDLES
 
-antigen theme agnoster
-
 antigen apply
 
 COMPLETION_WAITING_DOTS="true"
@@ -33,6 +31,8 @@ then
   alias vim="nvim"
   alias vi="nvim"
   export PATH="/usr/local/bin:$PATH"
+  antigen theme agnoster
+  antigen apply
 fi
 
 #################    Linux     ##################
@@ -58,13 +58,16 @@ then
   #This is a pain in linux, make it easy if you aren't in the right keyboard
   alias aoeu="key_swap ~/.qwerty | xmodmap -"
   alias asdf="key_swap ~/.dvorak | xmodmap -"
+
+  antigen theme agnoster
+  antigen apply
 fi
 
 
 #############     Windows/Cygwin  ####################
 #
 
-if [[ `uname` == "CYGWIN_NT-6.1" ]]
+if [[ `uname` == "CYGWIN_NT-6.1" ]] || [[ `uname` == "CYGWIN_NT-6.1-WOW" ]] 
 then
   # There's no clear command in cygwin for some reason
   alias clear='printf "\033c"'

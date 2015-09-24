@@ -1,3 +1,7 @@
 .pentadactyl/info/*
 
 AutoHotKey.exe
+
+*.un
+*~
+*.sw*
