@@ -86,7 +86,7 @@ setopt NO_HUP
 setopt NO_CHECK_JOBS
 
 
-alias -g G="| grep"
+alias -g G="| grep -i"
 
 alias gclean='git remote prune origin'
 
