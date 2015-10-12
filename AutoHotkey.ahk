@@ -394,23 +394,9 @@ return
 	}
 return
 
-~LAlt::
-	KeyWait, LShift
-	If (A_TimeSinceThisHotkey < 200 and A_PriorKey = "LAlt") {
-		Send, )
-	}
-return
-
 ~RShift::
 	KeyWait, RShift
 	If (A_TimeSinceThisHotkey < 200 and A_PriorKey = "RShift") {
 		Send, {
-	}
-return
-
-~RAlt::
-	KeyWait, LShift
-	If (A_TimeSinceThisHotkey < 200 and A_PriorKey = "RAlt") {
-		Send, }
 	}
 return
