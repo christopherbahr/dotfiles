@@ -385,3 +385,32 @@ WinSet, Style, +0xC40000, A
 WinRestore, A
 }
 return
+
+;Trying this again, it seems like a nice power tool that I'd like to be able to use
+~LShift::
+	KeyWait, LShift
+	If (A_TimeSinceThisHotkey < 200 and A_PriorKey = "LShift") {
+		Send, (
+	}
+return
+
+~LAlt::
+	KeyWait, LShift
+	If (A_TimeSinceThisHotkey < 200 and A_PriorKey = "LAlt") {
+		Send, )
+	}
+return
+
+~RShift::
+	KeyWait, RShift
+	If (A_TimeSinceThisHotkey < 200 and A_PriorKey = "RShift") {
+		Send, {
+	}
+return
+
+~RAlt::
+	KeyWait, LShift
+	If (A_TimeSinceThisHotkey < 200 and A_PriorKey = "RAlt") {
+		Send, }
+	}
+return
