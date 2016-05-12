@@ -397,6 +397,6 @@ return
 ~RShift::
 	KeyWait, RShift
 	If (A_TimeSinceThisHotkey < 200 and A_PriorKey = "RShift") {
-		Send, {
+		Send, )
 	}
 return

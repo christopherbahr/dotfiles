@@ -70,7 +70,9 @@ fi
 if [[ `uname` == "CYGWIN_NT-6.1" ]] || [[ `uname` == "CYGWIN_NT-6.1-WOW" ]] 
 then
   # There's no clear command in cygwin for some reason
-  alias clear='printf "\033c"'
+  alias clear='printf "\033c"' 
+  antigen theme af-magic
+  antigen apply
 
 fi
 
