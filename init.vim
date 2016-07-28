@@ -1,6 +1,6 @@
 set runtimepath^=~/.dein/repos/github.com/Shougo/dein.vim
 
-call dein#begin(expand('.dein'))
+call dein#begin(expand('~/.dein'))
 
 " Let dein manage dein
 call dein#add('Shougo/dein.vim')
@@ -166,7 +166,7 @@ let g:unite_quick_match_table = {
 "allegedly this makes it better, I don't entirely understand fuzzy matching but
 "I have had some trouble with the matches displayed so issue 276 seems like it
 "may fix it
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 tnoremap <Esc><Esc> <C-\><C-n>
 
