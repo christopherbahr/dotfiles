@@ -92,6 +92,8 @@ alias -g G="| grep -i"
 
 alias gclean='git remote prune origin'
 
+source ~/.localrc
+
 ##### SSH-AGENT #####
 #section stolen from github so ssh won't harrass me about the passphrase every
 #time

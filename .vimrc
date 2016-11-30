@@ -172,8 +172,10 @@ NeoBundle 'tpope/vim-dispatch'
 "Browse tags, look at variables, functions, etc
 NeoBundle 'majutsushi/tagbar'
 
+NeoBundle 'vim-airline/vim-airline-themes'
+
 "improve the status line
-NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline'
 "show all the buffers
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
